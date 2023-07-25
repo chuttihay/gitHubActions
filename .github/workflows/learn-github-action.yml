@@ -1,15 +1,19 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: JFrog Xray Scan Docker App
+run-name: ${{ github.actor }} is attempting to automate JFrog Xray
 on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '14'
+    - name: create and tag docker image
+      run: |
+      docker build -f  
+    
+#     - uses: actions/setup-node@v3
+#       with:
+#         node-version: '14'
     - uses: jfrog/setup-jfrog-cli@v3
     - run: jf --version
-    - run: npm install -g bats
-    - run: bats -v
+#     - run: npm install -g bats
+#     - run: bats -v
