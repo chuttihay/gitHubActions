@@ -1,6 +1,9 @@
 name: JFrog Xray Scan Docker App
 run-name: ${{ github.actor }} is attempting to run JFrog Xray on docker artifact
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       name:
