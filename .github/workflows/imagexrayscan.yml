@@ -21,14 +21,14 @@ jobs:
     - name: Checkout repository 
       uses: actions/checkout@v3
     
-    - name: Set up Docker CLI #have to do this to run the docker commands without error
-      uses: docker/setup-docker@v1
+#     - name: Set up Docker CLI #have to do this to run the docker commands without error
+#       uses: docker/setup-docker@v1
    
     - name: Tag & Build Docker Image
       run: |
         IMAGE_NAME=${{  github.event.inputs.image-name }}
         IMAGE_TAG=${{ github.event.inputs.image-tag }}
-        # docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./Images/$IMAGE_NAMEDockerfile .
+        docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./Images/$IMAGE_NAMEDockerfile .
     
     - uses: jfrog/setup-jfrog-cli@v3
     - run: jf --version
