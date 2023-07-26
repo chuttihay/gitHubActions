@@ -2,7 +2,7 @@ name: JFrog Xray Scan Docker App
 run-name: ${{ github.actor }} is attempting to automate JFrog Xray
 on: [push]
 jobs:
-  pull repo-build image-mock push:
+  pullrepo_buildimage_mockpush:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository 
