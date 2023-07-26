@@ -1,21 +1,64 @@
 name: JFrog Xray Scan Docker App
-run-name: ${{ github.actor }} is attempting to automate JFrog Xray
-on: [push]
+run-name: ${{ github.actor }} is attempting to run JFrog Xray on docker artifact
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'image'
+        required: true
+        type: string
+      color:
+        description: 'tag'
+        required: true
+        type: string
 jobs:
   pullrepo_buildimage_mockpush:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository 
       uses: actions/checkout@v3
-    - name: ls
-      run: pwd; ls
+#     - name: ls
+#       run: pwd; ls
     - name: Tag & Build Docker Image
-      run: docker build -t ubuntubase:latest -f ./Images/Dockerfile .
+      run: docker build -t ${{ inputs.image }}:${{ inputs.tag }} -f ./Images/${{ inputs.image }}Dockerfile .
     
-#     - uses: actions/setup-node@v3
-#       with:
-#         node-version: '14'
     - uses: jfrog/setup-jfrog-cli@v3
     - run: jf --version
-#     - run: npm install -g bats
-#     - run: bats -v
+    
+    
+#     #Add Security Credentials for Jfrog Authentication
+#     - name: Add config to Jfrog CLI
+#       env:
+#         registry: mcd.jfrog.io
+#         username: ${{ secrets.jfrog_username }}
+#         passwd: ${{ secrets.jfrog_password }}
+#       run: |
+#         # Add config to Jfrog CLI
+#         jfrog config add --artifactory-url https://$ARTI_HOST/artifactory --user $username --access-token $passwd --interactive=false --xray-url https://$ARTI_HOST/xray 
+     
+ 
+#       # Push the docker image to Jfrog Artifactory
+#     - name: docker push
+#       run: |
+#         jfrog rt docker-push $ARTI_HOST/$REPOSITORY_NAME/$IMAGE_TAG:$VERSION $REPOSITORY_NAME --project=$PROJECT_NAME --build-name=$BUILD_NAME --build-number=${{ github.run_number }}
+
+
+#       # Publish the build Info
+#     - name: build publish
+#       run: |
+#         jf rt bce --project=$PROJECT_NAME $BUILD_NAME ${{ github.run_number }}
+#         jf rt bag --project=$PROJECT_NAME $BUILD_NAME ${{ github.run_number }}
+#         jfrog rt build-publish --project=$PROJECT_NAME $BUILD_NAME ${{ github.run_number }}
+
+
+#       # Scan the published build
+#     - name: build scan
+#         run: |
+#           jf bs $BUILD_NAME ${{ github.run_number }} --vuln=true --project=$PROJECT_NAME
+
+#       # Logout from the Jfrog Artifactory
+#     - name: Log out of Artifactory
+#       if: always()
+#       run: |
+#         docker logout
+
