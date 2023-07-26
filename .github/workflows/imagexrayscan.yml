@@ -15,15 +15,20 @@ on:
         required: true
         type: string
 jobs:
-  pullrepo_buildimage_mockpush:
+  build-image:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository 
       uses: actions/checkout@v3
-#     - name: ls
-#       run: pwd; ls
+    
+    - name: Set up Docker CLI #have to do this to run the docker commands without error
+      uses: docker/setup-docker@v1
+   
     - name: Tag & Build Docker Image
-      run: docker build -t ${{ github.event.inputs.image-name }}:${{ github.event.inputs.image-tag }} -f ./Images/${{ inputs.image-name }}Dockerfile .
+      run: |
+        IMAGE_NAME=${{  github.event.inputs.image-name }}
+        IMAGE_TAG=${{ github.event.inputs.image-tag }}
+        # docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./Images/$IMAGE_NAMEDockerfile .
     
     - uses: jfrog/setup-jfrog-cli@v3
     - run: jf --version
