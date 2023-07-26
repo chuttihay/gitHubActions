@@ -8,7 +8,7 @@ jobs:
     - name: Checkout repository 
       uses: actions/checkout@v3
     - name: Tag & Build Docker Image
-      run: docker build -f githubactions/images/ubuntubase:latest
+      run: docker build -f githubactions/images/ubuntubase
     
 #     - uses: actions/setup-node@v3
 #       with:
