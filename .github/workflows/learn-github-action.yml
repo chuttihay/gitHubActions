@@ -10,7 +10,7 @@ jobs:
     - name: ls
       run: pwd; ls
     - name: Tag & Build Docker Image
-      run: docker build -f ./Images/Dockerfile
+      run: docker build -ubuntubase:latest -f ./Images/Dockerfile .
     
 #     - uses: actions/setup-node@v3
 #       with:
