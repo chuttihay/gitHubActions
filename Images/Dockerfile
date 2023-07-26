@@ -1,2 +1,2 @@
 FROM ubuntu
-ENTRYPOINY ["/bin/bash", "-c", "echo hello"]
+ENTRYPOINT ["/bin/bash", "-c", "echo hello"]
